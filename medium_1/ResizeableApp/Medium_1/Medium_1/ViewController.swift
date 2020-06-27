@@ -25,13 +25,6 @@ class ViewController: UIViewController {
     
     let bookCellId = "BookCellId"
     
-    var mainTableView: UITableView = {
-       let tableView = UITableView()
-       tableView.translatesAutoresizingMaskIntoConstraints = false
-       tableView.separatorStyle = .none
-       return tableView
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -41,34 +34,21 @@ class ViewController: UIViewController {
     
     func setup() {
         self.view.addSubview(mainTableView)
-
-        mainTableView.delegate = self
-        mainTableView.dataSource = self
-        mainTableView.register(BookCellId.self, forCellReuseIdentifier: bookCellId)
-        NSLayoutConstraint.activate([
-           mainTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-           mainTableView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
-           mainTableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-           mainTableView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-        ])
     }
 
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookText.count
+        return //
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: bookCellId) as! BookCellId
-        cell.bookImage.image = UIImage(named: imageNames[indexPath.row])
-        cell.bookDescription.text = bookText[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return //
     }
     
     
