@@ -20,10 +20,17 @@ class ViewController: UIViewController {
                          "Books are the perfect entertainment: no commercials, no batteries, hours of enjoyment for each dollar spent. What I wonder is why everybody doesn't carry a book around for those inevitable dead spots in life. So please, oh please, we beg, we pray, Go throw your TV set away, And in its place you can install A lovely bookshelf on the wall. Then fill the shelves with lots of books.",
                          "You get a little moody sometimes but I think that's because you like to read. People that like to read are always a little fucked up. You think your pain and your heartbreak are unprecedented in the history of the world, but then you read. It was books that taught me that the things that tormented me most were the very things that connected me with all the people who were alive, who had ever been alive."
     ]
-    
+     
     let imageNames = ["1","2","3","4","5","6","7","8","9"]
     
     let bookCellId = "BookCellId"
+    
+    var mainTableView: UITableView = {
+       let tableView = UITableView()
+       tableView.translatesAutoresizingMaskIntoConstraints = false
+       tableView.separatorStyle = .none
+       return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,21 +42,33 @@ class ViewController: UIViewController {
     func setup() {
         self.view.addSubview(mainTableView)
 
+        mainTableView.delegate = self
+        mainTableView.dataSource = self
+        mainTableView.register(BookCellId.self, forCellReuseIdentifier: bookCellId)
+        NSLayoutConstraint.activate([
+           mainTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+           mainTableView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+           mainTableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+           mainTableView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+        ])
     }
 
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return //
+        return bookText.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: bookCellId) as! BookCellId
+        cell.bookImage.image = UIImage(named: imageNames[indexPath.row])
+        cell.bookDescription.text = bookText[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return //
+        return UITableView.automaticDimension
     }
     
     
